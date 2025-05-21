@@ -1,0 +1,12 @@
+<h1>Posts</h1>
+<%= link_to 'Novo Post', new_post_path %>
+
+<% @posts.each do |post| %>
+  <h2><%= link_to post.content.truncate(50), post_path(post) %></h2>
+  <p>Por <%= post.user.email %></p>
+  <p><%= time_ago_in_words(post.created_at) %> atrás</p>
+  <% if post.user == current_user %>
+    <%= link_to 'Editar', edit_post_path(post) %> |
+  <% end %>
+  <hr>
+<% end %>

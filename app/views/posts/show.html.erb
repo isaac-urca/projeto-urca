@@ -1,0 +1,52 @@
+<h1>
+  post
+</h1>
+
+<p>
+  <strong>Título:</strong>
+  <%= @post.title %>
+</p>
+<p>
+  <strong>Conteúdo:</strong>
+  <%= @post.content %>
+</p>
+<p>
+  <strong>Autor:</strong>
+  <%= @post.user.email %>
+</p>
+
+<p>
+  <strong>Criado em:</strong>
+  <%= time_ago_in_words(@post.created_at) %> atrás
+</p>
+<p>
+  <strong>Atualizado em:</strong>
+  <%= time_ago_in_words(@post.updated_at) %> atrás
+</p>
+
+<h2>Comentários</h2>
+<%= form_with(model: [ @post, Comment.new ], local: true) do |form| %>
+  <div class="field">
+    <%= form.label :content, "Novo comentário" %>
+    <%= form.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Adicionar Comentário" %>
+  </div>
+<% end %>
+
+<% @post.comments.each do |comment| %>
+  <p><strong><%= comment.user.email %></strong>: <%= comment.content %></p>
+  <% if comment.user == current_user %>
+    <%= link_to 'Excluir', [comment.post, comment], data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' } %>
+  <% end %>
+<% end %>
+<p>
+  <%= link_to 'Voltar', posts_path %>
+</p>
+<p>
+  <%= link_to 'Editar', edit_post_path(@post) %>
+</p>
+<p>
+  <%= link_to 'Excluir', post_path(@post), data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' } %>
+</p>
