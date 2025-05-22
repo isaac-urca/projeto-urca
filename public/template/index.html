@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Rede Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">Minha Rede Social</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house-door-fill"></i> Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-people-fill"></i> Amigos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-bell-fill"></i> Notificações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-chat-dots-fill"></i> Mensagens</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                </form>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://via.placeholder.com/30" alt="Avatar" class="rounded-circle me-1"> Meu Perfil
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Configurações</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="sidebar">
+                    <div class="card mb-3">
+                        <div class="card-body text-center">
+                            <img src="https://via.placeholder.com/100" alt="Avatar do Usuário" class="profile-img mb-3">
+                            <h5 class="card-title">Nome do Usuário</h5>
+                            <p class="card-text text-muted">@nomedeusuario</p>
+                            <a href="#" class="btn btn-primary btn-sm">Ver Perfil</a>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Pessoas que você talvez conheça
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="https://via.placeholder.com/40" alt="Amigo 1" class="profile-img me-2">
+                                <div>
+                                    <h6 class="mb-0">Nome do Amigo 1</h6>
+                                    <small class="text-muted">10 amigos em comum</small>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <img src="https://via.placeholder.com/40" alt="Amigo 2" class="profile-img me-2">
+                                <div>
+                                    <h6 class="mb-0">Nome do Amigo 2</h6>
+                                    <small class="text-muted">5 amigos em comum</small>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
+                            </li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="profile-img me-2">
+                            <input type="text" class="form-control rounded-pill" placeholder="No que você está pensando, Nome do Usuário?">
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-around">
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-camera-video me-1"></i> Vídeo ao Vivo</button>
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-image me-1"></i> Foto/Vídeo</button>
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-emoji-smile me-1"></i> Sentimento/Atividade</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://via.placeholder.com/50" alt="Avatar do Usuário" class="profile-img me-2">
+                            <div>
+                                <h6 class="mb-0">Nome do Usuário do Post</h6>
+                                <small class="text-muted">Há 1 hora</small>
+                            </div>
+                        </div>
+                        <p class="card-text">Este é um exemplo de um post na minha nova rede social! 🎉 #Bootstrap5 #RedeSocial</p>
+                        <img src="https://via.placeholder.com/600x400" alt="Imagem do Post" class="img-fluid rounded mb-3 post-img">
+                        <div class="d-flex justify-content-around border-top pt-2">
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-hand-thumbs-up"></i> Curtir</button>
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-chat"></i> Comentar</button>
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-share"></i> Compartilhar</button>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="https://via.placeholder.com/30" alt="Avatar Comentário" class="profile-img me-2">
+                            <input type="text" class="form-control rounded-pill" placeholder="Escreva um comentário...">
+                        </div>
+                        <small class="text-muted">Ver todos os 5 comentários</small>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://via.placeholder.com/50" alt="Avatar do Usuário 2" class="profile-img me-2">
+                            <div>
+                                <h6 class="mb-0">Outro Usuário</h6>
+                                <small class="text-muted">Há 3 horas</small>
+                            </div>
+                        </div>
+                        <p class="card-text">Adoro a paisagem daqui! ⛰️</p>
+                        <img src="https://via.placeholder.com/600x400/28a745/ffffff?text=Natureza" alt="Imagem do Post 2" class="img-fluid rounded mb-3 post-img">
+                        <div class="d-flex justify-content-around border-top pt-2">
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-hand-thumbs-up"></i> Curtir</button>
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-chat"></i> Comentar</button>
+                            <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-share"></i> Compartilhar</button>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <small class="text-muted">Nenhum comentário ainda.</small>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="sidebar">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Tendências
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">#DesenvolvimentoWeb</li>
+                            <li class="list-group-item">#Bootstrap</li>
+                            <li class="list-group-item">#Programação</li>
+                            <li class="list-group-item">#Tecnologia</li>
+                        </ul>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Anúncios
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Crie seu próprio site com as melhores ferramentas! <a href="#">Saiba mais</a></p>
+                            <img src="https://via.placeholder.com/250x100/007bff/ffffff?text=Anúncio" alt="Anúncio" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+</html>

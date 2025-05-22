@@ -1,0 +1,36 @@
+<div class="col-lg-3 d-none d-lg-block">
+  <div class="sidebar">
+    <div class="card mb-3">
+      <div class="card-body text-center">
+        <img src="https://via.placeholder.com/100" alt="Avatar do Usuário" class="profile-img mb-3">
+        <h5 class="card-title"><%= current_user.user_profile.name %></h5>
+        <p class="card-text text-muted">@nomedeusuario</p>
+        <%= link_to 'Editar Perfil',edit_user_profile_path(current_user.user_profile), class: "btn btn-secondary btn-sm ms-2" %>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        Pessoas que você talvez conheça
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex align-items-center">
+          <img src="https://via.placeholder.com/40" alt="Amigo 1" class="profile-img me-2">
+          <div>
+            <h6 class="mb-0">Nome do Amigo 1</h6>
+            <small class="text-muted">10 amigos em comum</small>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <img src="https://via.placeholder.com/40" alt="Amigo 2" class="profile-img me-2">
+          <div>
+            <h6 class="mb-0">Nome do Amigo 2</h6>
+            <small class="text-muted">5 amigos em comum</small>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

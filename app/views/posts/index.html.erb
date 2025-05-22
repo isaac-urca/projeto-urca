@@ -1,12 +1,23 @@
-<h1>Posts</h1>
-<%= link_to 'Novo Post', new_post_path %>
 
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="d-flex align-items-center mb-3">
+      <img src="https://via.placeholder.com/40" alt="Avatar do Usuário" class="profile-img me-2">
+      <input type="text" class="form-control rounded-pill" placeholder="No que você está pensando, Nome do Usuário?">
+    </div>
+    <hr>
+    <div class="d-flex justify-content-around">
+      <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-camera-video me-1"></i> Vídeo ao Vivo</button>
+      <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-image me-1"></i> Foto/Vídeo</button>
+      <button class="btn btn-light flex-grow-1 mx-1"><i class="bi bi-emoji-smile me-1"></i>
+        Sentimento/Atividade</button>
+        <%= link_to 'Novo Post' , new_post_path %>
+    </div>
+  </div>
+</div>
 <% @posts.each do |post| %>
-  <h2><%= link_to post.content.truncate(50), post_path(post) %></h2>
-  <p>Por <%= post.user.email %></p>
-  <p><%= time_ago_in_words(post.created_at) %> atrás</p>
-  <% if post.user == current_user %>
-    <%= link_to 'Editar', edit_post_path(post) %> |
-  <% end %>
-  <hr>
+    <%= render post %>
 <% end %>
+
+
+  

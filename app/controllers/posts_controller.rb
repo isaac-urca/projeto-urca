@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     
     if @post.save
-      redirect_to @post, notice: 'Post criado com sucesso.'
+      redirect_to posts_path, notice: 'Post criado com sucesso.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post atualizado com sucesso.'
+      redirect_to posts_path, notice: 'Post atualizado com sucesso.'
     else
       render :edit, status: :unprocessable_entity
     end

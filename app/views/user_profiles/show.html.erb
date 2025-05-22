@@ -1,25 +1,28 @@
-<h1>Detalhes do perfil do usuário</h1>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @user_profile.name %>
-</p>
-<p>
-  <strong>Biografia:</strong>
-  <%= @user_profile.bio %>
-</p>
-<p>
-  <strong>Criado em:</strong>
-  <%= time_ago_in_words(@user_profile.created_at) %> atrás
-</p>
-<p>
-  <strong>Atualizado em:</strong>
-  <%= time_ago_in_words(@user_profile.updated_at) %> atrás
-</p>
-
-<p>
-  <%= link_to 'Editar', edit_user_profile_path(@user_profile) %>
-</p>
-<p>
-  <%= link_to 'Excluir', user_profile_path(@user_profile), data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' } %>  
-</p>
+<div class="card mb-3">
+  <div class="card-header text-center">
+    <h5 class="card-title">Editar Perfil </h5>
+  </div>
+  <div class="card-body">
+      <p>
+        <strong>Nome:</strong>
+        <%= @user_profile.name %>
+      </p>
+      <p>
+        <strong>Biografia:</strong>
+        <%= @user_profile.bio %>
+      </p>
+      <p>
+        <strong>Criado em:</strong>
+        <%= time_ago_in_words(@user_profile.created_at) %> atrás
+      </p>
+      <p>
+        <strong>Atualizado em:</strong>
+        <%= time_ago_in_words(@user_profile.updated_at) %> atrás
+      </p>
+  </div>
+  <div class="card-footer d-flex justify-content-around">
+    <%= link_to 'Editar Perfil', edit_user_profile_path(@user_profile), class: "btn btn-danger" %>
+    <%= link_to 'Voltar', posts_path, class: "btn btn-secondary" %>
+  </div>
+</div>

@@ -19,6 +19,14 @@
 
   <body>
     <%= render "shared/navigation" %>
-    <%= yield %>
+     <div class="container mt-4">
+        <div class="row">
+          <%= render "shared/leftbar" %>
+          <div class="col-lg-6">
+            <%= yield %>
+          </div>
+          <%= render "shared/rightbar" %>
+        </div>
+      </div>
   </body>
 </html>

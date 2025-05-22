@@ -1,26 +1,40 @@
-<%= form_with(model: @post, local: true) do |form| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "erro") %> proibiu este post de ser salvo:</h2>
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="card mb-3">
+  <div class="card-header text-center">
+    <% if @post.id.nil? %>
+    <h5 class="card-title">Nova Postagem </h5>
+    <% else %>
+    <h5 class="card-title">Editar Postagem </h5>
+    <% end %>
+  </div>
+    <div class="card-body">
+      <%= form_with(model: @post, local: true) do |form| %>
+        <% if @post.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@post.errors.count, "erro") %> proibiu este post de ser salvo:</h2>
+            <ul>
+              <% @post.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :title, "Título" %>
-    <%= form.text_field :title %>
-  </div>
+        <div class="field">
+          <%= form.label :title, "Título" %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
 
-  <div class="field">
-    <%= form.label :content, "Conteúdo" %>
-    <%= form.text_area :content %>
-  </div>
+        <div class="field">
+          <%= form.label :content, "Conteúdo" %>
+          <%= form.text_area :content, class: "form-control" %>
+        </div>
 
-  <div class="actions">
-    <%= form.submit %>
+        <div class="actions mt-3 mb-3 d-flex justify-content-center">
+          <%= form.submit "Salvar", class: "btn btn-primary" %>
+        </div>
+      <% end %>
   </div>
-<% end %>
+  <div class="card-footer d-flex justify-content-around">
+    <%= link_to 'Voltar', posts_path, class: "btn btn-secondary" %>
+  </div>
+</div>

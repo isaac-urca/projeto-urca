@@ -1,28 +1,38 @@
-<%= form_with(model: @user_profile, local: true) do |form| %>
-  <% if @user_profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user_profile.errors.count, "erro") %> proibiu este perfil de usuário de ser salvo:</h2>
-      <ul>
-        <% @user_profile.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name, "Nome" %>
-    <%= form.text_field :name %>
+<div class="card mb-3">
+  <div class="card-header text-center">
+    <h5 class="card-title">Editar Perfil </h5>
   </div>
+  <div class="card-body">
+    <%= form_with(model: @user_profile, local: true) do |form| %>
+      <% if @user_profile.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user_profile.errors.count, "erro") %> proibiu este perfil de usuário de ser salvo:</h2>
+          <ul>
+            <% @user_profile.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  
-  <div class="field">
-    <%= form.label :bio, "Biografia" %>
-    <%= form.text_area :bio %>
+      <div class="field mb-2">
+        <%= form.label :name, "Nome" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
+
+      
+      <div class="field">
+        <%= form.label :bio, "Biografia" %>
+        <%= form.text_area :bio, class: "form-control" %>
+      </div>
+
+      <div class="actions mt-3 d-flex justify-content-center">
+        <%= form.submit "salvar", class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="card-footer d-flex justify-content-around">
+    <%= link_to 'Ver Perfil', user_profile_path(@user_profile), class: "btn btn-danger" %>
+    <%= link_to 'Voltar', posts_path, class: "btn btn-secondary" %>
   </div>
-
-<% end %>
+</div>
