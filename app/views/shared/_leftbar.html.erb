@@ -2,11 +2,10 @@
   <div class="sidebar">
     <div class="card mb-3">
       <div class="card-body text-center">
-        <img src="https://via.placeholder.com/100" alt="Avatar do Usuário" class="profile-img mb-3">
-        <h5 class="card-title"><%= current_user.user_profile.name %></h5>
-        <p class="card-text text-muted">@nomedeusuario</p>
-        <%= link_to 'Editar Perfil',edit_user_profile_path(current_user.user_profile), class: "btn btn-secondary btn-sm ms-2" %>
-      </div>
+          <%= image_tag current_user.user_profile.avatar.variant(resize_to_limit: [100, 100]), class: "profile-img mb-3" if current_user.user_profile.avatar.attached?  %>
+          <h5 class="card-title">@<%= current_user.user_profile.name %></h5>
+          <%= link_to 'Editar Perfil',edit_user_profile_path(current_user.user_profile), class: "btn btn-secondary btn-sm ms-2" %>
+        </div>
     </div>
 
     <div class="card mb-3">

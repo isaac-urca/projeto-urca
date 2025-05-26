@@ -21,11 +21,33 @@
       </div>
 
       
-      <div class="field">
+      <div class="field mb-2">
         <%= form.label :bio, "Biografia" %>
         <%= form.text_area :bio, class: "form-control" %>
       </div>
 
+      <div class="field mb-2">
+        <%= form.label :lattes_link, "lattes" %>
+        <%= form.text_field :lattes_link, class: "form-control" %>
+      </div>
+
+    <div class="field mb-2">
+      <%= form.label :avatar, "foto de perfil" %><br/>
+      <%= form.file_field :avatar %>
+    </div>
+    <% if form.object.avatar.attached? %>
+      <p>Foto atual:</p>
+      <%= image_tag form.object.avatar.variant(resize_to_limit: [100, 100]) %>
+    <% end %>
+
+    <% if current_user.user_profile.admin? %>
+      <hr>
+      <h3>Gerenciamento de Função (Apenas para Admins)</h3>
+      <div>
+        <%= form.label :role, "Função no Programa" %>
+        <%= form.select :role, UserProfile.roles.keys.map { |r| [r.humanize, r] }, { prompt: "Selecione a função" } %>
+      </div>
+    <% end %>
       <div class="actions mt-3 d-flex justify-content-center">
         <%= form.submit "salvar", class: "btn btn-primary" %>
       </div>
