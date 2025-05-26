@@ -19,18 +19,6 @@
 
   <body>
     <%= render "shared/navigation" %>
-     <div class="container mt-4">
-        <div class="row">
-          <% if current_user %>
-            <%= render "shared/leftbar" %>
-          <% end %>
-            <div class="col-lg-6">
-              <%= yield %>
-            </div>
-          <% if current_user %>
-            <%= render "shared/rightbar" %>
-          <% end %>
-        </div>
-      </div>
+      <%= yield %>
   </body>
 </html>

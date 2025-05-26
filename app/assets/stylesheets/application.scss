@@ -13,4 +13,15 @@
  *= require_tree .
  *= require_self
  */
+//@import "custom_variables"; // Import your custom variables first
 @import "bootstrap";
+
+.btn-primary {
+  color: white !important; // Ou use #fff !important;
+}
+.btn-secondary {
+  color: white !important;
+}
+.btn-info {
+  color: white !important;
+}

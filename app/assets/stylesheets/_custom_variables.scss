@@ -1,0 +1,64 @@
+// app/assets/stylesheets/_custom_variables.scss
+$white:    #fff !default; // !default significa que se $white já estiver definido, ele não será sobrescrito
+$black:    #000 !default; // Isso é bom para não conflitar se o Bootstrap já tiver carregado
+
+// Sua paleta personalizada (mantendo as que você já definiu)
+$my-primary: #164EF5;      // Azul Médio - Primário Forte
+$my-secondary: #1694F5;    // Azul Médio Claro - Equilibrado
+$my-info: #68B8F5;         // Azul Pastel/Claro
+$my-success: #16F5C5;      // Verde Água/Ciano
+$my-highlight: #16DBF5;    // Azul Ciano Claro
+$my-dark-blue: #2516F5;    // Azul Escuro Intenso
+
+// --- Mapeando para as variáveis do Bootstrap ---
+// Cores principais do tema (já configurado)
+$primary: $my-primary;
+$secondary: $my-secondary;
+$info: $my-info;
+$success: $my-success;
+$dark: $my-dark-blue;
+$highlight: $my-highlight; // Apenas para sua customização, não é uma cor de tema padrão do Bootstrap
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "dark":       $dark,
+  "highlight":  $highlight // Sua cor customizada para classes como .text-highlight
+);
+
+
+// --- Variáveis Específicas para Links e Botões ---
+
+// Cor geral dos links (pode ser útil para links fora de botões também)
+$link-color: $my-primary; // Exemplo: links gerais serão com seu azul primário
+$link-hover-color: darken($link-color, 15%); // Escurece 15% ao passar o mouse
+
+// Cor do texto de botões primários (geralmente branco para contraste)
+// Se o seu $primary for escuro, $white é bom. Se for claro, pode ser $dark.
+$btn-primary-color: $white; // Cor do texto dos botões primários (background $primary)
+$btn-secondary-color: $white; // Cor do texto dos botões secundários (background $secondary)
+$btn-info-color: $white;     // Cor do texto dos botões info (background $info)
+$btn-success-color: $dark; // Exemplo: se o $success for claro, o texto pode ser escuro
+
+// Para links dentro de botões (raro, mas pode acontecer)
+// Bootstrap geralmente garante que links dentro de botões herdem a cor do texto do botão.
+// Se você tem links dentro de botões e quer uma cor específica para eles,
+// você pode precisar de uma regra CSS mais específica no seu `application.scss`
+// APÓS importar o Bootstrap, como:
+// .btn a { color: var(--alguma-cor-especifica) !important; }
+// Mas isso geralmente não é necessário, pois o texto do botão já é $btn-primary-color.
+
+// Cores de texto padrão para botões de contorno (outline buttons)
+// A cor do texto para `btn-outline-primary` é `$primary` por padrão.
+// Se quiser mudar a cor do texto para botões de contorno (quando não hover),
+// você precisaria customizar as mixins de botão do Bootstrap, o que é mais avançado.
+// Geralmente, `$primary` para texto e borda é o esperado para `btn-outline-primary`.
+
+// Exemplo de como usar sua cor $my-highlight para um botão específico se não quiser uma cor de tema
+// Isso envolveria adicionar uma nova classe CSS manual, não diretamente nas variáveis do Bootstrap.
+// Ex: no application.scss
+// .btn-highlight {
+//   @include button-variant($my-highlight, $my-highlight, darken($my-highlight, 7.5%), lighten($my-highlight, 5%), $my-highlight, lighten($my-highlight, 5%), $white);
+// }

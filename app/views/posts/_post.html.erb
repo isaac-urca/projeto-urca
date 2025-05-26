@@ -1,7 +1,7 @@
 <div class="card mb-3">
     <div class="card-body">
         <div class="d-flex align-items-center mb-3">
-            <img src="https://via.placeholder.com/50" alt="Avatar do Usuário" class="profile-img me-2">
+            <%= image_tag current_user.user_profile.avatar.variant(resize_to_limit: [100, 100]), class: "profile-img mb-3" if current_user.user_profile.avatar.attached?  %>
             <div>
                 <h6 class="mb-0"><%= post.user.email %></h6>
                 <small class="text-muted"><%= time_ago_in_words(post.updated_at) %></small>
