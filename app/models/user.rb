@@ -8,6 +8,11 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :memberships, dependent: :destroy
+  has_many :research_groups, through: :memberships # Grupos dos quais o usuário é membro
+
+  has_many :administered_research_groups, class_name: 'ResearchGroup', foreign_key: 'admin_id', dependent: :nullify
+
   after_create :create_user_profile
 
   private
