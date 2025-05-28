@@ -1,18 +1,18 @@
 <div class="card mb-3">
   <div class="card-header text-center">
-    <% if @post.id.nil? %>
+    <% if post&.nil? %>
     <h5 class="card-title">Nova Postagem </h5>
     <% else %>
     <h5 class="card-title">Editar Postagem </h5>
     <% end %>
   </div>
     <div class="card-body">
-      <%= form_with(model: @post, local: true) do |form| %>
-        <% if @post.errors.any? %>
+      <%= form_with(model: post, local: true) do |form| %>
+        <% if !post.nil? && post.errors.any? %>
           <div id="error_explanation">
-            <h2><%= pluralize(@post.errors.count, "erro") %> proibiu este post de ser salvo:</h2>
+            <h2><%= pluralize(post.errors.count, "erro") %> proibiu este post de ser salvo:</h2>
             <ul>
-              <% @post.errors.full_messages.each do |message| %>
+              <% post.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
               <% end %>
             </ul>

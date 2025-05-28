@@ -1,0 +1,41 @@
+<%# app/views/research_groups/index.html.erb %>
+
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Grupos de Pesquisa</h1>
+    <% if user_signed_in? %>
+      <%= link_to "Criar Novo Grupo", new_research_group_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% if @research_groups.empty? %>
+      <div class="col">
+        <p class="text-muted">Nenhum grupo de pesquisa encontrado ainda.</p>
+      </div>
+    <% else %>
+      <% @research_groups.each do |group| %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <% if group.avatar.attached? %>
+              <%= image_tag group.avatar.variant(resize_to_limit: [300, 200]), class: "card-img-top" %>
+            <% else %>
+              <%# Placeholder para grupos sem avatar %>
+              <div class="card-img-top bg-light text-center d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="bi bi-collection-fill" style="font-size: 3rem; color: #ced4da;"></i> <%# Ícone do Bootstrap Icons %>
+              </div>
+            <% end %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title text-primary-dark mb-2"><%= link_to group.name, research_group_path(group), class: "text-decoration-none" %></h5>
+              <p class="card-text text-muted mb-auto"><%= truncate(group.description, length: 100) %></p>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
+              <small class="text-muted"><i class="bi bi-people-fill"></i> <%= group.users.count %> membros</small>
+              <span class="badge bg-info text-white"><%= group.visibility.humanize %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
