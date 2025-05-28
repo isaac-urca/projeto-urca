@@ -2,13 +2,44 @@
   <div class="sidebar">
     <div class="card mb-3">
       <div class="card-header">
-        Tendências
+        Grupos que você participa
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">#DesenvolvimentoWeb</li>
-        <li class="list-group-item">#Bootstrap</li>
-        <li class="list-group-item">#Programação</li>
-        <li class="list-group-item">#Tecnologia</li>
+        <% current_user.research_groups.each do |group| %>
+          <li class="list-group-item d-flex justify-items-center ">
+            <%= image_tag group.avatar.variant(resize_to_limit: [100, 100]) %> 
+            <%= group.name %>
+            <div>
+              <h6 class="mb-0"><%= group.name %></h6>
+              <small class="text-muted"><%= group.memberships.active.count %> membros</small>
+            </div>
+            <a href="<%= research_group_path(group) %>" class="btn btn-outline-primary btn-sm ms-auto">Ver Grupo</a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+     <div class="card mb-3">
+      <div class="card-header">
+        Pessoas que você talvez conheça
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex align-items-center">
+          <img src="https://via.placeholder.com/40" alt="Amigo 1" class="profile-img me-2">
+          <div>
+            <h6 class="mb-0">Nome do Amigo 1</h6>
+            <small class="text-muted">10 amigos em comum</small>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
+        </li>
+        <li class="list-group-item d-flex align-items-center">
+          <img src="https://via.placeholder.com/40" alt="Amigo 2" class="profile-img me-2">
+          <div>
+            <h6 class="mb-0">Nome do Amigo 2</h6>
+            <small class="text-muted">5 amigos em comum</small>
+          </div>
+          <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
+        </li>
       </ul>
     </div>
 

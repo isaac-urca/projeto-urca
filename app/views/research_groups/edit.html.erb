@@ -1,0 +1,7 @@
+<%# app/views/research_groups/edit.html.erb %>
+
+<div class="container my-4">
+  <h1 class="mb-4">Editar Grupo de Pesquisa: <%= @research_group.name %></h1>
+  <%= render 'form', research_group: @research_group %>
+  <%= link_to "Voltar para o Grupo", research_group_path(@research_group), class: "btn btn-outline-secondary mt-3" %>
+</div>

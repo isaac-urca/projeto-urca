@@ -7,6 +7,15 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   resources :user_profiles, only: [:show, :edit, :update, :destroy] 
+
+  resources :research_groups do
+    member do
+      post :join    # Para solicitar entrada ou entrar diretamente (depende da visibilidade)
+      post :leave   # Para sair do grupo
+    end
+    resources :memberships, only: [:index, :update, :destroy] # Gerenciar membros (aprovar, mudar role)
+    resources :posts, only: [:new, :create, :show] # Posts dentro do grupo (talvez também edit/update/destroy)
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

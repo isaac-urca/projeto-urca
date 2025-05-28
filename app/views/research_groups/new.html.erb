@@ -1,0 +1,7 @@
+<%# app/views/research_groups/new.html.erb %>
+
+<div class="container my-4">
+  <h1 class="mb-4">Criar Novo Grupo de Pesquisa</h1>
+  <%= render 'form', research_group: @research_group %>
+  <%= link_to "Voltar para Grupos", research_groups_path, class: "btn btn-outline-secondary mt-3" %>
+</div>
