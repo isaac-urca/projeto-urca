@@ -13,11 +13,11 @@ class Membership < ApplicationRecord
 
   # Callback para definir o role do criador do grupo como 'moderator' e 'active'
   # (Opcional, pode ser feito no controller de criação do grupo também)
-  after_create :set_creator_as_moderator_and_active, if: -> { user == research_group.admin }
+#  after_create :set_creator_as_moderator_and_active, if: -> { user == research_group.admin }
 
-  private
+  # private
 
-  def set_creator_as_moderator_and_active
-    self.update(role: :moderator, status: :active)
-  end
+  # def set_creator_as_moderator_and_active
+  #   self.update(role: :moderator, status: :active)
+  # end
 end

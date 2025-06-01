@@ -15,4 +15,12 @@ class ResearchGroup < ApplicationRecord
   # Validações
   validates :name, presence: true, uniqueness: true, length: { minimum: 3, maximum: 100 }
   validates :description, length: { maximum: 1000 }, allow_blank: true
+
+  after_create :set_membership_for_admin
+  
+  private
+  def set_membership_for_admin
+    # Cria uma associação de membro para o administrador do grupo
+    self.memberships.create(user: self.admin, role: :moderator, status: :active) 
+  end
 end
