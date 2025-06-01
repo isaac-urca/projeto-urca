@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Projeto Urca" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= yield :head %>
+<head>
+    <title>
+        <%= content_for(:title) || "Projeto Urca" %>
+    </title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+<%= yield :head %>
 
-  <body>
-    <%= render "shared/navigation" %>
-     <div class="container mt-4">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon.png">
+<%= stylesheet_link_tag "application" , "data-turbo-track":"reload" %>
+<%= javascript_importmap_tags %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+</head>
+
+<body>
+
+   <%= render 'shared/navigation' %>
+
+    <main class="container-fluid">
         <div class="row">
-          <% if current_user %>
-            <%= render "shared/leftbar" %>
-          <% end %>
-            <div class="col-lg-6">
-              <%= yield %>
-            </div>
-          <% if current_user %>
-            <%= render "shared/rightbar" %>
-          <% end %>
+            <!-- Barra Lateral Esquerda -->
+            <%= render 'shared/leftbar' %>
+
+            <!-- Conteúdo Principal -->
+            <section class="col-md-6 feed mt-5" tabindex="0" aria-label="Feed de publicações">
+                <section class="post-input mb-4">
+                    <textarea aria-label="Campo para escrever nova publicação" placeholder="No que você está pensando?" id="postText"></textarea>
+                    <div class="text-end mt-2">
+                        <button id="btnPost" class="btn btn-primary" aria-label="Publicar nova publicação">Publicar</button>
+                    </div>
+                </section>
+
+                <section id="feed">
+                    <%= yield %>
+                </section>
+            </section>
+
+            <!-- Barra Lateral Direita -->
+            <%= render 'shared/rightbar' %>
         </div>
-      </div>
-  </body>
+    </main>
+
+
+</body>
+
 </html>

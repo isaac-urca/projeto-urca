@@ -1,4 +1,5 @@
 class ResearchGroupsController < ApplicationController
+  layout 'research_group', except: [:index, :new]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_research_group, only: [:show, :edit, :update, :destroy, :join, :leave]
 
@@ -7,7 +8,7 @@ class ResearchGroupsController < ApplicationController
   end
 
   def show
-    @posts = @research_group.posts.includes(:user).order(created_at: :desc)
+    @posts = @research_group.posts.order(created_at: :desc)
     @membership = @research_group.memberships.find_by(user: current_user)
   end
 

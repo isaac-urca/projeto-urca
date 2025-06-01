@@ -1,0 +1,45 @@
+<div class="col-lg-3 d-none d-lg-block">
+  <div class="sidebar">
+    <div class="card mb-3">
+      <div class="card-header">
+        Membros do Grupo
+      </div>
+      <ul class="list-group list-group-flush">
+        <% if @research_group.memberships.empty? %>
+          <li class="list-group-item text-muted">
+            Nenhum membro ativo neste grupo ainda.
+          </li>
+        <% else %>
+          <% @research_group.memberships.active.each do |membership| %>
+            <li class="list-group-item d-flex justify-items-center ">
+              <%= image_tag membership.user.user_profile.avatar.variant(resize_to_limit: [50, 50]) %> 
+              <div class="ms-2">
+                <h6 class="mb-0"><%= membership.user.user_profile.name %></h6>
+                <span class="badge bg-secondary ms-2"><%= membership.role.humanize %></span>
+              </div>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+     <div class="card mb-3">
+      <div class="card-header">
+        Grupos de Pesquisa Relacionados
+      </div>
+      <ul class="list-group list-group-flush">
+      </ul>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        Anúncios
+      </div>
+      <div class="card-body">
+        <p class="card-text">Crie seu próprio site com as melhores ferramentas! <a href="#">Saiba mais</a></p>
+        <img src="https://via.placeholder.com/250x100/007bff/ffffff?text=Anúncio" alt="Anúncio"
+          class="img-fluid rounded">
+      </div>
+    </div>
+  </div>
+</div>

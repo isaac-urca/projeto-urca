@@ -1,0 +1,31 @@
+<div class="col-lg-3 d-none d-lg-block">
+  <div class="sidebar">
+    <div class="card mb-3">
+      <div class="card-body text-center">
+          <%= image_tag @research_group.avatar if current_user.user_profile.avatar.attached?  %>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">
+        Pessoas que você talvez conheça
+      </div>
+      <div class="card-body text-center">
+        <% if user_signed_in? %>
+          <% if @research_group.admin == current_user %>
+            <%= link_to "Editar Grupo", edit_research_group_path(@research_group), class: "btn btn-secondary mb-3" %>
+          <% end %>
+
+          <% if @membership.nil? %>
+            <%= button_to "Entrar no Grupo", join_research_group_path(@research_group), method: :post, class: "btn btn-success" %>
+            <% elsif @membership.pending? %>
+            <button class="btn btn-warning" disabled>Solicitação Pendente</button>
+            <% elsif @membership.active? %>
+            <%= button_to "Sair do Grupo", leave_research_group_path(@research_group), method: :post, class: "btn btn-danger" %>
+          <% end %>
+          
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

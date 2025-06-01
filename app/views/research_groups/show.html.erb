@@ -2,35 +2,14 @@
 
 <div class="container my-4">
   <div class="d-flex align-items-center mb-4">
-    <% if @research_group.avatar.attached? %>
-      <%= image_tag @research_group.avatar.variant(resize_to_limit: [100, 100]), class: "rounded-circle me-3" %>
-    <% else %>
-      <i class="bi bi-collection-fill me-3" style="font-size: 2.5rem; color: #ced4da;"></i>
-    <% end %>
     <div>
       <h1 class="mb-0 text-primary-dark"><%= @research_group.name %></h1>
-      <p class="text-muted mb-1">Criado por: <%= link_to @research_group.admin.user_profile.name, user_profile_path(@research_group.admin.user_profile.id), class: "text-decoration-none" %></p>
       <span class="badge bg-info text-white"><%= @research_group.visibility.humanize %></span>
+      <%= link_to "Excluir Grupo", research_group_path(@research_group), data: { turbo_method: :delete}, class: "btn btn-danger btn-sm ms-2" if @research_group.admin == current_user %>
     </div>
   </div>
 
   <p class="lead"><%= @research_group.description %></p>
-
-  <div class="d-flex gap-2 mb-4">
-    <%= link_to "Editar Grupo", edit_research_group_path(@research_group), class: "btn btn-secondary" %>
-    
-
-    <%# Botão de Entrar/Sair %>
-    <% if user_signed_in? %>
-      <% if @membership.nil? %>
-        <%= button_to "Entrar no Grupo", join_research_group_path(@research_group), method: :post, class: "btn btn-success" %>
-      <% elsif @membership.pending? %>
-        <button class="btn btn-warning" disabled>Solicitação Pendente</button>
-      <% elsif @membership.active? %>
-        <%= button_to "Sair do Grupo", leave_research_group_path(@research_group), method: :post, class: "btn btn-danger" %>
-      <% end %>
-    <% end %>
-  </div>
 
   <%# Alerta para solicitações pendentes (apenas para admins/moderadores do grupo) %>
   <% if @research_group.memberships.pending.any?  %>
@@ -45,52 +24,20 @@
 
   <div class="row">
     <div class="col-md-4">
-      <h2 class="mb-3">Membros do Grupo</h2>
-      <div class="list-group mb-3">
-        <% if @research_group.memberships.active.empty? %>
-          <p class="text-muted">Nenhum membro ativo neste grupo ainda.</p>
-        <% else %>
-          <% @research_group.memberships.active.each do |membership| %>
-            <%= link_to user_profile_path(membership.user), class: "list-group-item list-group-item-action d-flex align-items-center" do %>
-              <% if membership.user.user_profile.avatar.attached? %>
-                <%= image_tag membership.user.user_profile.avatar.variant(resize_to_limit: [30, 30]), class: "rounded-circle me-2" %>
-              <% else %>
-                <i class="bi bi-person-circle me-2" style="font-size: 1.5rem; color: #6c757d;"></i>
-              <% end %>
-              <%= membership.user.user_profile.name %>
-              <span class="badge bg-secondary ms-auto"><%= membership.role.humanize %></span>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
         <%= link_to "Gerenciar Membros", research_group_memberships_path(@research_group), class: "btn btn-outline-info w-100" %>
     </div>
     <div class="col-md-9">
       <h2 class="mb-3">Publicações do Grupo</h2>
-      <%# Formulário para criar novo post (apenas para membros ativos) %>
-      <% if @membership&.active? %>
-        <div class="card mb-4 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">Nova Publicação</h5>
-            <%= render 'posts/form', post: @post, research_group: @research_group %>
-          </div>
-        </div>
-      <% else %>
-        <p class="alert alert-info">Você precisa ser um membro ativo para publicar neste grupo.</p>
-      <% end %>
-
       <%# Lista de Posts do Grupo %>
       <div id="group_posts_list">
         <% if @posts.empty? %>
           <p class="text-muted">Nenhuma publicação neste grupo ainda.</p>
         <% else %>
           <% @posts.each do |post| %>
-            <%= render 'posts/post', post: post %> <%# Assumindo que você tem uma partial _post.html.erb %>
+            <%= render 'posts/post', locals: { post: @post }%> <%# Assumindo que você tem uma partial _post.html.erb %>
           <% end %>
         <% end %>
       </div>
     </div>
-
-    
   </div>
 </div>

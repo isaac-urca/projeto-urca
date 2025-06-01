@@ -16,12 +16,177 @@
 //@import "custom_variables"; // Import your custom variables first
 @import "bootstrap";
 
-.btn-primary {
-  color: white !important; // Ou use #fff !important;
+@font-face {
+  font-family: "cordel-bold";
+  src: url(./fonts/CordelEncarnado-Bold.ttf) format("truetype");
+  font-weight: bold;
 }
-.btn-secondary {
-  color: white !important;
+
+@font-face {
+  font-family: "cordel";
+  src: url(./fonts/CordelEncarnado-Regular.ttf) format("truetype");
+  font-weight: normal;
 }
-.btn-info {
-  color: white !important;
+
+body {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    min-height: 100vh;
+    color: white;
+    font-family: "cordel-bold" ,"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+nav {
+    background-color: rgba(34, 74, 190, 0.9);
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-right: 20px;
+}
+nav .search-and-logo {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 400px;
+}
+nav form input {
+    width: 100%;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+nav .nav-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+nav .profile-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+nav .profile-dropdown img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.profile-card, .groups, .friends {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.profile-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.profile-card h5 {
+    margin: 10px 0 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.profile-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #c2c7d9;
+}
+.post {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.6rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.post-input textarea {
+    border-radius: 12px;
+    resize: vertical;
+    min-height: 80px;
+    min-width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    background-color: #334aac;
+    border: none;
+    color: white;
+}
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+.avatar {
+    width: 44px;
+    height: 44px;
+    background-color: #335ecf;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    user-select: none;
+    text-transform: uppercase;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+.post-user-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.post-date {
+    font-size: 0.9rem;
+    color: #c2c7d9;
+}
+.post-content {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+    line-height: 1.4;
+}
+.post-actions {
+    display: flex;
+    gap: 1.5rem;
+}
+.post-actions button {
+    background: transparent;
+    border: none;
+    color: #aac7ff;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+}
+.post-actions button:hover {
+    color: #e3f2ff;
+}
+.feed-container::-webkit-scrollbar {
+    width: 8px;
+}
+.feed-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+.feed-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.card{
+ background-color: #335ecf;
 }

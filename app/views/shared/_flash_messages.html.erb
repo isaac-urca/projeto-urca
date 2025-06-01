@@ -1,0 +1,19 @@
+<%# app/views/shared/_flash_messages.html.erb %>
+
+<% flash.each do |msg_type, msg| %>
+  <div class="alert alert-<%= bootstrap_class_for(msg_type) %> alert-dismissible fade show" role="alert">
+    <%= msg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<%# Helper para mapear tipos de flash para classes Bootstrap %>
+<%# Você pode adicionar este helper em app/helpers/application_helper.rb %>
+<% if defined?(bootstrap_class_for) %>
+  <%# Já incluído no ApplicationHelper, ou adicione aqui se preferir %>
+<% else %>
+  <%# Exemplo de helper inline se não for criar um arquivo separado %>
+  <% def bootstrap_class_for(flash_type)
+       { success: "success", error: "danger", alert: "warning", notice: "info" }[flash_type.to_sym] || flash_type.to_s
+     end %>
+<% end %>

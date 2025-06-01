@@ -1,35 +1,28 @@
-<div class="col-lg-3 d-none d-lg-block">
-  <div class="sidebar">
-    <div class="card mb-3">
-      <div class="card-body text-center">
-          <%= image_tag current_user.user_profile.avatar.variant(resize_to_limit: [100, 100]), class: "profile-img mb-3" if current_user.user_profile.avatar.attached?  %>
-          <h5 class="card-title">@<%= current_user.user_profile.name %></h5>
-          <%= link_to 'Editar Perfil',edit_user_profile_path(current_user.user_profile), class: "btn btn-secondary btn-sm ms-2" %>
-        </div>
+<aside class="col-md-3 sidebar-left mt-5">
+    <div class="profile-card">
+        <%= image_tag current_user.user_profile.avatar.variant(resize_to_limit: [40,40]), alt: 'Avatar' %>
+        <h5><%= current_user.user_profile.name %></h5>
+        <p>Desenvolvedor</p>
+        <p>São Paulo, Brasil</p>
+        <p>
+            <%= link_to user_profile_path(current_user), class: "btn btn-outline-light w-100 mt-3" do %>
+                <i class="bi bi-person-fill me-2" style="font-size: 1.5rem; cursor: pointer;"></i>Detalhes do Perfil
+            <% end %>
+        </p>
     </div>
-
-    <div class="card mb-3">
-      <div class="card-header">
-        Pessoas que você talvez conheça
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item d-flex align-items-center">
-          <img src="https://via.placeholder.com/40" alt="Amigo 1" class="profile-img me-2">
-          <div>
-            <h6 class="mb-0">Nome do Amigo 1</h6>
-            <small class="text-muted">10 amigos em comum</small>
-          </div>
-          <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
-        </li>
-        <li class="list-group-item d-flex align-items-center">
-          <img src="https://via.placeholder.com/40" alt="Amigo 2" class="profile-img me-2">
-          <div>
-            <h6 class="mb-0">Nome do Amigo 2</h6>
-            <small class="text-muted">5 amigos em comum</small>
-          </div>
-          <button class="btn btn-outline-primary btn-sm ms-auto">Seguir</button>
-        </li>
-      </ul>
+    <div class="profile-card d-flex flex-row align-items-center justify-content-center">
+            <!-- Conteúdo do primeiro card -->
+        <!-- Conteúdo do segundo card -->
+            <h6 class="mt-2">Visualizações do perfil</h6><span class="badge bg-secondary ms-2">150</span>
     </div>
-  </div>
-</div>
+    <div class="profile-card">
+        <!-- Conteúdo do terceiro card -->
+        <%= link_to research_groups_path, class: "btn btn-outline-light w-100 mt-3" do %>
+            <i class="bi bi-people-fill me-2" style="font-size: 1.5rem; cursor: pointer;"></i>Grupos de Pesquisa
+        <% end %>
+        <button class="btn btn-outline-light w-100 mt-3" aria-label="eventos">
+            <i class="bi bi-calendar-date-fill" style="font-size: 1.5rem; cursor: pointer;"></i>
+            Eventos
+        </button>
+    </div>
+</aside>
