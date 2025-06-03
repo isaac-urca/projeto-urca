@@ -1,6 +1,5 @@
 class ResearchGroupsController < ApplicationController
   layout 'research_group', except: [:index, :new]
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_research_group, only: [:show, :edit, :update, :destroy, :join, :leave]
 
   def index
@@ -10,6 +9,9 @@ class ResearchGroupsController < ApplicationController
   def show
     @posts = @research_group.posts.order(created_at: :desc)
     @membership = @research_group.memberships.find_by(user: current_user)
+    
+    @new_post = @research_group.posts.build(user: current_user)
+
   end
 
   def new
@@ -25,7 +27,9 @@ class ResearchGroupsController < ApplicationController
     end
   end
 
-  def edit;end
+  def edit
+    @membership = @research_group.memberships.find_by(user: current_user)
+  end
 
   def update
     if @research_group.update(research_group_params)

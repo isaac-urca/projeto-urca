@@ -1,31 +1,27 @@
-<div class="col-lg-3 d-none d-lg-block">
-  <div class="sidebar">
-    <div class="card mb-3">
-      <div class="card-body text-center">
-          <%= image_tag @research_group.avatar if current_user.user_profile.avatar.attached?  %>
-        </div>
-    </div>
+<aside class="col-md-3 sidebar-left mt-5">
+    <div class="profile-card">
+        <%= image_tag @research_group.avatar if current_user.user_profile.avatar.attached?  %>
 
-    <div class="card mb-3">
-      <div class="card-header">
-        Pessoas que você talvez conheça
-      </div>
-      <div class="card-body text-center">
-        <% if user_signed_in? %>
+        
+        <p>
+          <%= link_to research_group_path(@research_group), class: "text-decoration-none text-white fw-bold" do %>
+            <i class="bi bi-search me-2" style="font-size: 1.5rem; cursor: pointer;"></i> Detalhes do Grupo
+          <% end %>
+        </p>
+    </div>
+    <div class="profile-card d-flex flex-row align-items-center justify-content-center">
+            <!-- Conteúdo do primeiro card -->
+        <!-- Conteúdo do segundo card -->
           <% if @research_group.admin == current_user %>
             <%= link_to "Editar Grupo", edit_research_group_path(@research_group), class: "btn btn-secondary mb-3" %>
           <% end %>
 
-          <% if @membership.nil? %>
+          <% if @membership.user != current_user %>
             <%= button_to "Entrar no Grupo", join_research_group_path(@research_group), method: :post, class: "btn btn-success" %>
-            <% elsif @membership.pending? %>
+          <% elsif @membership.pending? %>
             <button class="btn btn-warning" disabled>Solicitação Pendente</button>
-            <% elsif @membership.active? %>
-            <%= button_to "Sair do Grupo", leave_research_group_path(@research_group), method: :post, class: "btn btn-danger" %>
+          <% elsif @membership.active? %>
+            <%= button_to "Sair do Grupo", leave_research_group_path(@research_group), method: :post, class: "btn btn-danger ms-2 mb-3" %>
           <% end %>
-          
-        <% end %>
-      </div>
     </div>
-  </div>
-</div>
+</aside>

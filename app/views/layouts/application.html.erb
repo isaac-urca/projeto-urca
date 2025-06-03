@@ -33,22 +33,17 @@
 
             <!-- Conteúdo Principal -->
             <section class="col-md-6 feed mt-5" tabindex="0" aria-label="Feed de publicações">
-                <section class="post-input mb-4">
-                    <textarea aria-label="Campo para escrever nova publicação" placeholder="No que você está pensando?" id="postText"></textarea>
-                    <div class="text-end mt-2">
-                        <button id="btnPost" class="btn btn-primary" aria-label="Publicar nova publicação">Publicar</button>
-                    </div>
-                </section>
-
-                <section id="feed">
                     <%= yield %>
-                </section>
             </section>
 
             <!-- Barra Lateral Direita -->
             <%= render 'shared/rightbar' %>
         </div>
+        <%= render 'shared/create_post_modal' %>
     </main>
+
+
+<!-- Modal -->
 
 
 </body>

@@ -1,20 +1,56 @@
+
+<section class="post-input mb-4">
+    <textarea aria-label="Campo para escrever nova publicação" placeholder="No que você está pensando?" id="postText" data-bs-toggle="modal" data-bs-target="#createPostModal"></textarea>
+    <div class="text-end mt-2">
+        <button id="btnPost" class="btn btn-primary" aria-label="Publicar nova publicação">Publicar</button>
+    </div>
+</section>
+
 <% @posts.each do |post| %>
-    <article class="post">
-        <div class="post-header">
-            <div class="user-info">
-                <div class="avatar" aria-hidden="true"><%= image_tag (current_user.user_profile.avatar.variant(resize_to_limit: [30,30])) %></div>
-                
+    <div class="card news-feed-post shadow-sm mt-3"> <%# Use div.card para o post %>
+        <div class="card-body">
+            <div class="d-flex align-items-center mb-2 post-header">
+            <div class="user-info d-flex align-items-center flex-grow-1"> <%# user-info para alinhar avatar e nome %>
+                <div class="avatar me-2" aria-hidden="true">
+                <%# Avatar do usuário que postou %>
+                <% if post.user.user_profile&.avatar&.attached? %>
+                    <%= image_tag(post.user.user_profile.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle") %>
+                <% else %>
+                    <i class="bi bi-person-circle" style="font-size: 2.5rem; color: #6c757d;"></i>
+                <% end %>
+                </div>
                 <div>
-                    <div class="post-user-name"><%= post.user.email %></div>
-                    <div class="post-date"><%= post.updated_at %></div>
+                <div class="post-user-name fw-bold"><%= post.user.user_profile&.name || post.user.email.split('@').first %></div>
+                <small class="post-date text-muted"><%= time_ago_in_words(post.created_at) %> atrás</small>
                 </div>
             </div>
+
+            <%# Botões de Editar/Excluir movidos para um Dropdown no canto superior direito %>
+            <% if post.user == current_user %>
+                <div class="dropdown">
+                <button class="btn btn-sm btn-light border-0" type="button" id="postDropdown<%= post.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postDropdown<%= post.id %>">
+                    <li><%= link_to 'Editar', edit_post_path(post), class: "dropdown-item" %></li>
+                    <li><%= link_to 'Excluir', post, data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' }, class: "dropdown-item text-danger" %></li>
+                </ul>
+                </div>
+            <% end %>
+            </div>
+
+            <div class="post-content mb-3"> <%# Conteúdo do post %>
+            
+            <%= post.content %>
+            </div>
+
+            <hr class="my-3"> <%# Divisor antes das ações %>
+
+            <div class="d-flex justify-content-around post-actions"> <%# Ações de Curtir/Comentar/Compartilhar %>
+                <button type="button" class="btn btn-sm btn-light flex-grow-1 mx-1"><i class="bi bi-hand-thumbs-up me-1"></i> Curtir</button>
+                <button type="button" class="btn btn-sm btn-light flex-grow-1 mx-1"><i class="bi bi-chat-left-text me-1"></i> Comentar</button>
+                <button type="button" class="btn btn-sm btn-light flex-grow-1 mx-1"><i class="bi bi-share me-1"></i> Compartilhar</button>
+            </div>
         </div>
-        <div class="post-content"><%= post.content %></div>
-        <div class="post-actions">
-            <button type="button" onclick="alert('Você curtiu o post de ${post.user}!')" aria-label="Curtir post"><i class="bi bi-hand-thumbs-up"></i> Curtir</button>
-            <button type="button" onclick="alert('Funcionalidade de comentar em desenvolvimento.')" aria-label="Comentar no post"><i class="bi bi-chat-left-text"></i> Comentar</button>
-            <button type="button" onclick="alert('Funcionalidade de compartilhar em desenvolvimento.')" aria-label="Compartilhar post"><i class="bi bi-share"></i> Compartilhar</button>
-        </div>
-    </article>
+    </div>
 <% end %>
