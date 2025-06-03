@@ -126,6 +126,7 @@ nav .profile-dropdown img {
 .user-info {
     display: flex;
     align-items: center;
+    flex-direction: row;
 }
 .avatar {
     width: 44px;
@@ -189,4 +190,11 @@ nav .profile-dropdown img {
 
 .card{
  background-color: #335ecf;
+}
+
+.modal-content {
+    background-color: rgba(34, 74, 190, 0.9);
+    color: white;
+    border-radius: 12px;
+    padding: 20px;
 }

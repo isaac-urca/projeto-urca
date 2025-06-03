@@ -1,6 +1,5 @@
 class ResearchGroupsController < ApplicationController
   layout 'research_group', except: [:index, :new]
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_research_group, only: [:show, :edit, :update, :destroy, :join, :leave]
 
   def index
