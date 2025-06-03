@@ -18,8 +18,30 @@
     </div>
     
     <div class="nav-group">
-        <i class="bi bi-chat-left-fill" style="font-size: 1.5rem; cursor: pointer;"></i>
-        <i class="bi bi-bell-fill" style="font-size: 1.5rem; cursor: pointer;"></i>
+        
+        <div class="dropdown profile-dropdown">
+                <a class="dropdown-toggle nav-link" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">    
+                    <i class="bi bi-chat-left-fill" style="font-size: 1.5rem; cursor: pointer;"></i>              
+                </a>
+                
+                <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton">
+                    <li><img src="https://placehold.co/100x100" %> <span> Mensagem Recebida</span></li>
+                    <li><img src="https://placehold.co/100x100" %> <span> Mensagem Recebida</span></li>
+                    <li><img src="https://placehold.co/100x100" %> <span> Mensagem Recebida</span></li>
+                </ul>
+        </div>
+
+        <div class="dropdown profile-dropdown">
+                <a class="dropdown-toggle nav-link" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">    
+                    <i class="bi bi-bell-fill" style="font-size: 1.5rem; cursor: pointer;"></i>
+                </a>
+                
+                <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton">
+                    <li> <span> Notificação Recebida</span></li>
+                    <li> <span> Notificação Recebida</span></li>
+                    <li> <span> Notificação Recebida</span></li>
+                </ul>
+        </div>
         <% if current_user %>
             <div class="dropdown profile-dropdown">
                 <a class="dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">    
@@ -31,7 +53,7 @@
                 </a>
                 
                 <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton">
-                    <li><%= link_to "Meu Perfil", user_profile_path(current_user), class: "dropdown-item" %></li>
+                    <li><%= link_to "Meu Perfil", user_profile_path(current_user.user_profile), class: "dropdown-item" %></li>
                     <li><a class="dropdown-item" href="#">Configurações</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><%= link_to "Sair", destroy_user_session_path(current_user), class: "dropdown-item" ,data: { turbo_method: :delete } %></li>

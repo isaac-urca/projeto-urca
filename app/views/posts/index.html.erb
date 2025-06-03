@@ -1,6 +1,6 @@
 
 <section class="post-input mb-4">
-    <textarea aria-label="Campo para escrever nova publicação" placeholder="No que você está pensando?" id="postText" data-bs-toggle="modal" data-bs-target="#exampleModal"></textarea>
+    <textarea aria-label="Campo para escrever nova publicação" placeholder="No que você está pensando?" id="postText" data-bs-toggle="modal" data-bs-target="#createPostModal"></textarea>
     <div class="text-end mt-2">
         <button id="btnPost" class="btn btn-primary" aria-label="Publicar nova publicação">Publicar</button>
     </div>
@@ -54,14 +54,3 @@
         </div>
     </div>
 <% end %>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <%= render 'posts/form', post: Post.new %>
-    </div>
-  </div>
-</div>

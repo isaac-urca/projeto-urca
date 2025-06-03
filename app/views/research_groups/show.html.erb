@@ -1,43 +1,114 @@
-<%# app/views/research_groups/show.html.erb %>
-
 <div class="container my-4">
   <div class="d-flex align-items-center mb-4">
     <div>
       <h1 class="mb-0 text-primary-dark"><%= @research_group.name %></h1>
+      <p class="text-muted mb-1">Criado por: <%= link_to @research_group.admin.user_profile.name, user_profile_path(@research_group.admin), class: "text-decoration-none" %></p>
       <span class="badge bg-info text-white"><%= @research_group.visibility.humanize %></span>
-      <%= link_to "Excluir Grupo", research_group_path(@research_group), data: { turbo_method: :delete}, class: "btn btn-danger btn-sm ms-2" if @research_group.admin == current_user %>
+      <%# Botões de Editar/Excluir Grupo - AGORA SEM PUNDIT (APENAS SE O USUÁRIO LOGADO FOR O ADMIN DO GRUPO) %>
+      <% if @research_group.admin == current_user %>
+        <%= link_to "Gerenciar Membros", research_group_memberships_path(@research_group), class: "btn btn-outline-info w-100 mt-3 mb-3" %>
+        <%= link_to "Excluir Grupo", research_group_path(@research_group), data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?'}, class: "btn btn-danger btn-sm ms-2" %>
+      <% end %>
     </div>
   </div>
 
   <p class="lead"><%= @research_group.description %></p>
 
-  <%# Alerta para solicitações pendentes (apenas para admins/moderadores do grupo) %>
-  <% if @research_group.memberships.pending.any?  %>
-    <div class="alert alert-info d-flex align-items-center" role="alert">
-      <i class="bi bi-bell-fill me-2"></i>
-      <div>
-        Há <%= pluralize(@research_group.memberships.pending.count, "solicitação") %> pendente para este grupo.
-        <%= link_to "Gerenciar membros", research_group_memberships_path(@research_group), class: "alert-link" %>
-      </div>
-    </div>
-  <% end %>
+  <%# Botão de Entrar/Sair %>
+  <div class="d-flex gap-2 mb-4">
+    <% if user_signed_in? %>
+      <% if @membership.nil? %>
+        <%# Botão de Entrar - Visível se não for membro e puder entrar (ignora Pundit por enquanto) %>
+        <%= button_to "Entrar no Grupo", join_research_group_path(@research_group), method: :post, class: "btn btn-success" %>
+      <% elsif @membership.pending? %>
+        <button class="btn btn-warning" disabled>Solicitação Pendente</button>
+      <% end %>
+    <% end %>
+  </div>
+
 
   <div class="row">
-    <div class="col-md-4">
-        <%= link_to "Gerenciar Membros", research_group_memberships_path(@research_group), class: "btn btn-outline-info w-100" %>
-    </div>
-    <div class="col-md-9">
-      <h2 class="mb-3">Publicações do Grupo</h2>
-      <%# Lista de Posts do Grupo %>
+
+
+    <div class="col-md-12">
+      <h2 class="mb-3 mt-3">Publicações do Grupo</h2>
+      <%# Área de Input de Postagem (que aciona o modal) %>
+      <%# AGORA APENAS SE O USUÁRIO FOR MEMBRO ATIVO DO GRUPO %>
+      <% if @membership&.active? %>
+        <div class="card shadow-sm p-3 mb-4">
+          <div class="d-flex align-items-center">
+            <%# Avatar do usuário logado %>
+            <% if current_user.user_profile&.avatar&.attached? %>
+              <%= image_tag current_user.user_profile.avatar.variant(resize_to_limit: [40, 40]), class: "rounded-circle me-3" %>
+            <% else %>
+              <i class="bi bi-person-circle me-3" style="font-size: 2.5rem; color: #6c757d;"></i>
+            <% end %>
+            <%# O "input" falso que abrirá o modal %>
+            <div class="flex-grow-1" data-bs-toggle="modal" data-bs-target="#createPostModal" >
+              No que você está pensando, <%= current_user.user_profile&.name || current_user.email.split('@').first %>?
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <p class="alert alert-info">Você precisa ser um membro ativo para publicar neste grupo.</p>
+      <% end %>
+
+      <%# Lista de Posts do Grupo - ESTE É O TURBO_FRAME QUE RECEBERÁ OS NOVOS POSTS %>
       <div id="group_posts_list">
         <% if @posts.empty? %>
           <p class="text-muted">Nenhuma publicação neste grupo ainda.</p>
         <% else %>
           <% @posts.each do |post| %>
-            <%= render 'posts/post', locals: { post: @post }%> <%# Assumindo que você tem uma partial _post.html.erb %>
+            <%# Condicional para exibir posts - APENAS SE O USUÁRIO FOR MEMBRO ATIVO DO GRUPO (ou admin) %>
+            <% if @membership&.active? || current_user.user_profile.admin? %>
+              <%= render 'posts/post', post: post %>
+            <% end %>
+          <% end %>
+          <%# Se nenhum post for visível, exibir mensagem %>
+          <% if @posts.present? && @posts.none? { |post| @membership&.active? || current_user.user_profile.admin? } %>
+            <p class="text-muted">Você precisa ser membro ativo para ver as publicações deste grupo.</p>
           <% end %>
         <% end %>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <%= form_with(model: [@research_group, @new_post],  local: true) do |form| %>
+          <% if @new_post&.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger" data-turbo-permanent>
+              <h2><%= pluralize(@new_post.errors.count, "erro") %> impediram que esta publicação fosse salva:</h2>
+              <ul>
+                <% @new_post.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= form.label :title, "Título da Publicação", class: "form-label" %>
+            <%= form.text_field :title, class: "form-control", placeholder: "Opcional" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :content, "Sua Publicação", class: "form-label" %>
+            <%= form.text_area :content, class: "form-control", rows: 4, placeholder: "No que você está pensando?", required: true %>
+          </div>
+
+          <%# Campo oculto para o research_group_id, pois já estamos na página do grupo %>
+          <%= form.hidden_field :research_group_id, value: @research_group.id %>
+
+          <div class="d-flex justify-content-end mt-3">
+            <%= form.submit "Publicar no Grupo", class: "btn btn-primary" %>
+          </div>
+        <% end %>
     </div>
   </div>
 </div>

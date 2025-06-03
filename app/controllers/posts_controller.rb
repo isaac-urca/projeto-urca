@@ -15,9 +15,19 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+
+    if post_params[:research_group_id].present?
+      @research_group = ResearchGroup.find(post_params[:research_group_id])
+      @post.research_group = @research_group
+
+    end
     
     if @post.save
-      redirect_to posts_path, notice: 'Post criado com sucesso.'
+      if post_params[:research_group_id].present?
+          redirect_to research_group_path(@research_group), notice: 'Post criado com sucesso.'  
+      else
+        redirect_to posts_path, notice: 'Post criado com sucesso.'
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,6 +56,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :research_group_id)
   end
 end
