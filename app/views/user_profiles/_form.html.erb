@@ -31,6 +31,13 @@
         <%= form.text_field :lattes_link, class: "form-control" %>
       </div>
 
+      <div class="field mb-2">
+        <%= form.label :role, "Função" %>
+        <%= form.select :role, UserProfile.roles.keys.map { |role| [role.humanize, role] },
+                             { prompt: "Selecione a função" },
+                             class: "form-select" %>
+      </div>
+
     <div class="field mb-2">
       <%= form.label :avatar, "foto de perfil" %><br/>
       <%= form.file_field :avatar %>

@@ -1,0 +1,53 @@
+<div class="container my-4">
+  <h1 class="mb-4">Todos os Usuários</h1>
+
+  <%# O principal container de grid para os cards %>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> <%# g-4 para espaçamento entre cards %>
+    <% if @users.empty? %>
+      <div class="col-12">
+        <p class="text-muted">Nenhum usuário encontrado ainda.</p>
+      </div>
+    <% else %>
+      <% @users.each do |user| %>
+        <%# Cada card de usuário dentro de uma coluna %>
+        <div class="col"> <%# Esta div se tornará a coluna %>
+          <div class="card h-100 shadow-sm"> <%# h-100 para cards de mesma altura %>
+            <div class="card-body text-center d-flex flex-column align-items-center"> <%# Centraliza conteúdo no card %>
+              <%# Avatar do Usuário %>
+              <div class="avatar mb-3">
+                <% if user.user_profile&.avatar&.attached? %>
+                  <%= image_tag(user.user_profile.avatar.variant(resize_to_limit: [80, 80]), class: "rounded-circle border border-2 border-primary") %>
+                <% else %>
+                  <i class="bi bi-person-circle" style="font-size: 5rem; color: #6c757d;"></i>
+                <% end %>
+              </div>
+
+              <%# Nome do Usuário %>
+              <h5 class="card-title mb-1"><%= link_to user.user_profile&.name || user.email.split('@').first, user_path(user), class: "text-decoration-none text-primary-dark" %></h5>
+              <p class="card-text text-muted mb-auto"><%= user.user_profile&.role&.humanize %></p> <%# Exibe a função %>
+
+              <%# Informações Adicionais (opcional) %>
+              <small class="text-muted mt-2">Membro desde: <%= user.created_at.strftime("%d/%m/%Y") %></small>
+            </div>
+            <div class="card-footer bg-white border-top-0 d-flex justify-content-center">
+              <%# Botão de Seguir/Seguindo (se não for o próprio usuário) %>
+              <% if user_signed_in? && current_user != user %>
+                <% if current_user.following?(user) %>
+                  <%= button_to unfollow_user_path(user), method: :delete, class: "btn btn-outline-secondary btn-sm" do %>
+                    <i class="bi bi-person-check-fill me-1"></i> Seguindo
+                  <% end %>
+                <% else %>
+                  <%= button_to follow_user_path(user), method: :post, class: "btn btn-primary btn-sm" do %>
+                    <i class="bi bi-person-plus-fill me-1"></i> Seguir
+                  <% end %>
+                <% end %>
+              <% end %>
+              <%# Link para o perfil completo %>
+              <%= link_to 'Ver Perfil', user_path(user), class: "btn btn-outline-primary btn-sm ms-2" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

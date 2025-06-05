@@ -1,8 +1,6 @@
 <aside class="col-md-3 sidebar-left mt-5">
     <div class="profile-card">
         <%= image_tag @research_group.avatar if current_user.user_profile.avatar.attached?  %>
-
-        
         <p>
           <%= link_to research_group_path(@research_group), class: "text-decoration-none text-white fw-bold" do %>
             <i class="bi bi-search me-2" style="font-size: 1.5rem; cursor: pointer;"></i> Detalhes do Grupo
@@ -16,12 +14,14 @@
             <%= link_to "Editar Grupo", edit_research_group_path(@research_group), class: "btn btn-secondary mb-3" %>
           <% end %>
 
-          <% if @membership.user != current_user %>
+          <% if @membership.nil? %>
             <%= button_to "Entrar no Grupo", join_research_group_path(@research_group), method: :post, class: "btn btn-success" %>
-          <% elsif @membership.pending? %>
-            <button class="btn btn-warning" disabled>Solicitação Pendente</button>
-          <% elsif @membership.active? %>
-            <%= button_to "Sair do Grupo", leave_research_group_path(@research_group), method: :post, class: "btn btn-danger ms-2 mb-3" %>
+          <% else %>
+            <% if @membership.pending? %>
+              <span class="badge bg-warning text-dark">Solicitação Pendente</span>
+            <% elsif @membership.rejected? %>
+              <%= button_to "Sair do Grupo", leave_research_group_path(@research_group), method: :post, class: "btn btn-danger ms-2 mb-3" %>
+            <% end %>
           <% end %>
     </div>
 </aside>
