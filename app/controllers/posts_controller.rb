@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all
+                 .order(created_at: :desc)
   end
 
   def show
@@ -19,15 +20,11 @@ class PostsController < ApplicationController
     if post_params[:research_group_id].present?
       @research_group = ResearchGroup.find(post_params[:research_group_id])
       @post.research_group = @research_group
-
     end
     
     if @post.save
-      if post_params[:research_group_id].present?
-          redirect_to research_group_path(@research_group), notice: 'Post criado com sucesso.'  
-      else
-        redirect_to posts_path, notice: 'Post criado com sucesso.'
-      end
+      redirect_to @post.research_group || root_path, notice: 'Post criado com sucesso.'  
+      
     else
       render :new, status: :unprocessable_entity
     end

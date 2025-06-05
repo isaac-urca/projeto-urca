@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_26_234805) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_04_220038) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -51,17 +54,27 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_26_234805) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.bigint "follower_id", null: false
+    t.bigint "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_follows_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "research_group_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "research_group_id", null: false
     t.integer "role", default: 0
     t.integer "status", default: 0
     t.datetime "created_at", null: false
@@ -73,11 +86,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_26_234805) do
 
   create_table "posts", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "research_group_id"
+    t.bigint "research_group_id"
     t.index ["research_group_id"], name: "index_posts_on_research_group_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -86,7 +99,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_26_234805) do
     t.string "name"
     t.text "description"
     t.integer "visibility", default: 0
-    t.integer "admin_id", null: false
+    t.bigint "admin_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_research_groups_on_admin_id"
@@ -95,7 +108,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_26_234805) do
   create_table "user_profiles", force: :cascade do |t|
     t.string "name"
     t.text "bio"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "lattes_link"
@@ -119,6 +132,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_26_234805) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "follows", "users", column: "followed_id"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "memberships", "research_groups"
   add_foreign_key "memberships", "users"
   add_foreign_key "posts", "research_groups"

@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   get "comments/destroy"
   
   devise_for :users
+  resources :users do
+    member do
+      post :follow
+      delete :unfollow
+    end
+  end
+
   resources :posts do
     resources :comments, only: [:create, :destroy]
   end
